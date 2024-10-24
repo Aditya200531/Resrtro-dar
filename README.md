@@ -8,7 +8,6 @@ Restro-Radar is a modern web application that helps users find nearby restaurant
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Future Enhancements](#future-enhancements)
 
 ---
 
@@ -47,3 +46,15 @@ Restro-Radar is a modern web application that helps users find nearby restaurant
 ### Clone the Repository
 ```bash
 git clone https://github.com/Aditya200531/Restro-Radar/tree/main
+```
+
+---
+
+## Screenshots
+![image](https://github.com/user-attachments/assets/fda2bf03-4e71-42f4-86df-0915f519252e)
+![image](https://github.com/user-attachments/assets/000adba8-9de7-4754-9d23-9c8e5146e800)
+![image](https://github.com/user-attachments/assets/3df0832b-e8e8-43b2-b846-a38fde7fd312)
+
+---
+
+
