@@ -47,4 +47,3 @@ Restro-Radar is a modern web application that helps users find nearby restaurant
 ### Clone the Repository
 ```bash
 git clone https://github.com/Aditya200531/Restro-Radar/tree/main
-cd restro-radar
