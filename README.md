@@ -16,7 +16,7 @@ Restro-Radar is a modern web application that helps users find nearby restaurant
 - [Technologies Used](#technologies-used)
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
-- [Screenshots](#screenshots)
+- [Future Enhancements](#Future Enhancements)
 
 ---
 
