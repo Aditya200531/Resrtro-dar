@@ -45,7 +45,8 @@ Restro-Radar is a modern web application that helps users find nearby restaurant
 
 ---
 
-## Setup and Installation
+## Setup and Installation 
+
 
 ### Prerequisites
 1. Python 3.x
