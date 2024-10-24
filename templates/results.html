@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Location and Restaurants</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .map-container {
+            height: 400px;
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .restaurant-list {
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .restaurant {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fefefe;
+            transition: background-color 0.3s ease;
+        }
+        .restaurant:hover {
+            background-color: #e8f5e9; /* Light green on hover */
+        }
+        .restaurant h3 {
+            color: #388E3C; /* Dark green */
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .hygiene-score {
+            font-weight: bold;
+            color: #FF5722; /* Orange for hygiene score */
+        }
+        .reviews {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .reviews li {
+            margin-bottom: 8px;
+            padding: 8px;
+            border-left: 5px solid #4CAF50; /* Green border for reviews */
+            border-radius: 4px;
+            background-color: #f0f8ff; /* Light blue */
+            list-style-type: none; /* Remove bullet points */
+        }
+        .review-details {
+            font-weight: bold;
+            color: #4CAF50; /* Green for usernames and ratings */
+        }
+        .rating {
+            color: #FFB300; /* Amber for rating stars */
+        }
+        @media (max-width: 768px) {
+            .map-container, .restaurant-list {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nearby Location and Restaurants</h1>
+        <div class="map-container" id="map"></div>
+
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+        <script>
+            // Initialize the map
+            var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 15);
+
+            // Add OSM tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Add marker for the user's location
+            L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
+                .bindPopup('<b>Selected Location</b>')
+                .openPopup();
+
+            // Add markers for nearby restaurants
+            var restaurants = {{ restaurants|tojson }};
+            restaurants.forEach(function(restaurant) {
+                var lat = restaurant.geometry.location.lat;
+                var lng = restaurant.geometry.location.lng;
+                var name = restaurant.name;
+                L.marker([lat, lng], {
+                    icon: L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41]
+                    })
+                }).addTo(map)
+                  .bindPopup('<b>' + name + '</b>');
+            });
+        </script>
+
+        <div class="restaurant-list">
+            <h2>Nearby Restaurants</h2>
+            {% for restaurant in restaurants %}
+                <div class="restaurant">
+                    <h3>{{ restaurant.name }}</h3>
+                    <p class="hygiene-score">Hygiene Score: {{ restaurant.hygiene_score }}</p>
+                    <ul class="reviews">
+                        {% for review in restaurant.get('reviews', []) %}
+                            <li>
+                                <span class="review-details">{{ review.author_name }} (Rating: <span class="rating">{{ review.rating }}</span>/5)</span><br>
+                                {{ review.text }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
