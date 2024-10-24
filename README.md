@@ -1,3 +1,5 @@
+![logo](https://github.com/user-attachments/assets/ade83e46-8ff9-4650-b33a-c5c60cab8a3b)
+
 # Restro-Radar
 
 Restro-Radar is a modern web application that helps users find nearby restaurants based on their location. Using the power of geolocation and an interactive map, it displays restaurants along with their hygiene ratings, reviews, and more.
